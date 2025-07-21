@@ -59,13 +59,18 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         resolver: zodResolver(formSchema),
             defaultValues: initialData || {
                 name: '',
-                billboardId: ''
+                billboardId: '',
             }
         });
 
-    const onSubmit = async (data: CategoryFormValues) => {
+
+
+    const onSubmit = async (dataForm: CategoryFormValues) => {
+        const data = dataForm;
+
         try {
             setLoading(true)
+            console.log(data)
             if (initialData){
                 await axios.patch(`/api/${params.storeId}/categories/${params.categoryId}`, data);
             } else {
@@ -77,6 +82,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong.")
+            console.log(error)
         } finally {
             setLoading(false)
         }
@@ -91,6 +97,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
             router.refresh();
         } catch (error) {
             toast.error("Make sure you removed all products using this category first.")
+            console.log(error)
         } finally {
             setLoading(false)
             setOpen(false)

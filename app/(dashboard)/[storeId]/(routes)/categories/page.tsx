@@ -21,33 +21,19 @@ const CategoriesPage = async ({
         }
     });
 
-    const categorySort = await prismadb.categorySort.findMany({
-        where: {
-            storeId: params.storeId
-        },
-        orderBy: {
-            createdAt: 'desc',
-        }
-    });
-
 
     const formattedCategories: CategoryColumn[] = categories.map((item) => ({
         id: item.id,
         name: item.name,
         billboardLabel: item.billboard.label,
-        createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }));
-
-    const formattedCategorySort = categorySort.map((item) => ({
-        id: item.id,
-        name: item.sortName,
+        sortCategoryId: item.sortCategoryId,
         createdAt: format(item.createdAt, "MMMM do, yyyy")
     }));
 
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-4 pt-6">
-                <CategoryClient data={formattedCategories} sort={formattedCategorySort}/>
+                <CategoryClient data={formattedCategories}/>
             </div>
         </div>
     )

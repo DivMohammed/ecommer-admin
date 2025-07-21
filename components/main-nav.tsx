@@ -71,6 +71,7 @@ export function MainNav({
         >
             {routes.map((route) => (
                 <Link
+                prefetch={true}
                 key={route.href}
                 href={route.href}
                 className={cn(
